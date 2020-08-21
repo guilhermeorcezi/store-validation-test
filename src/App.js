@@ -27,19 +27,14 @@ function App() {
 		schooling: yup.string().required('Escolaridade é obrigatória'),
 	});
 
-	const handleSubmit = (
-		values,
-		{ setSubmitting, setErrors, setStatus, resetForm }
-	) => {
-
-	if(selectedSkills.length === 0){
-		setSkilError(true);
-		return;
-	}
+	const handleSubmit = (values,{ setSubmitting, setErrors, setStatus, resetForm }) => {
+		if (selectedSkills.length === 0) {
+			setSkilError(true);
+			return;
+		}
 
 		try {
 			values.skills = selectedSkills;
-			console.log('valores final', values);
 			setUser(values);
 
 			resetForm({});
@@ -57,9 +52,10 @@ function App() {
 		setToggle(toggle ? false : true);
 	}
 
-	function onChangeSkill(){
+	function onChangeSkill() {
 		setSkilError(false);
-		setSelectedSkills([...selectedSkills, skill])
+		setSkill('');
+		setSelectedSkills([...selectedSkills, skill]);
 	}
 
 	return (
@@ -69,8 +65,6 @@ function App() {
 				<button onClick={(e) => handleToggle()}>Cadastrar usuário</button>
 			</header>
 			<div className="content">
-				{console.log('data', user)}
-				{console.log('selected skills',selectedSkills)}
 				{user.length !== 0 ? (
 					<table>
 						<tr>
@@ -103,23 +97,23 @@ function App() {
 
 			{toggle && (
 				<div className="create-container">
-					<FaTimes
-						size={16}
-						style={{
-							position: 'absolute',
-							top: 235,
-							left: 375,
-							zIndex: 2,
-							cursor: 'pointer',
-						}}
-						onClick={(e) => handleToggle()}
-					/>
 					<Formik
 						initialValues={initialValues}
 						onSubmit={handleSubmit}
 						validationSchema={contactSchema}
 					>
 						<Form>
+							<FaTimes
+								size={16}
+								style={{
+									position: 'absolute',
+									top: '4px',
+									left: '4px',
+									zIndex: 2,
+									cursor: 'pointer',
+								}}
+								onClick={(e) => handleToggle()}
+							/>
 							<div className="form-header">
 								<h1>Cadastro de Usuários</h1>
 
@@ -202,9 +196,7 @@ function App() {
 										<div className="input-block">
 											<button
 												className="skill"
-												onClick={() =>
-													onChangeSkill()
-												}
+												onClick={() => onChangeSkill()}
 												type="button"
 											>
 												Adicionar
