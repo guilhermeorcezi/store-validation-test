@@ -73,10 +73,15 @@ function App() {
 							schooling: '',
 							skills: [''],
 						}}
-						onSubmit={(values) => {
+						onSubmit={(values, {resetForm}) => {
 							values.skills = selectedSkills;
 							console.log('valores final', values);
-							setUser(values);
+              setUser(values);
+
+              resetForm({})
+              setSkill('');
+              setSelectedSkills([]);
+              handleToggle();
 						}}
 					>
 						<Form>
