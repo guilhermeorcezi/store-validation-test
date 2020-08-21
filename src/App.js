@@ -1,17 +1,65 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { FaTimes } from 'react-icons/fa';
+import * as yup from 'yup';
 
 function App() {
 	const [toggle, setToggle] = useState(false);
 	const [skill, setSkill] = useState('');
 	const [selectedSkills, setSelectedSkills] = useState([]);
+	const [skilError, setSkilError] = useState(false);
 	const [user, setUser] = useState([]);
+
+	const initialValues = {
+		name: '',
+		nickname: '',
+		age: '',
+		schooling: '',
+		skills: [''],
+	};
+
+	const contactSchema = yup.object().shape({
+		name: yup.string().required('Nome é obrigatório'),
+		nickname: yup.string().required('Sobrenome é obrigatório'),
+		age: yup.number().required('Idade é obrigatória'),
+		schooling: yup.string().required('Escolaridade é obrigatória'),
+	});
+
+	const handleSubmit = (
+		values,
+		{ setSubmitting, setErrors, setStatus, resetForm }
+	) => {
+
+	if(selectedSkills.length === 0){
+		setSkilError(true);
+		return;
+	}
+
+		try {
+			values.skills = selectedSkills;
+			console.log('valores final', values);
+			setUser(values);
+
+			resetForm({});
+			setSkill('');
+			setSelectedSkills([]);
+			handleToggle();
+		} catch (error) {
+			setErrors({ submit: error.message });
+			setStatus({ success: false });
+			setSubmitting(false);
+		}
+	};
 
 	function handleToggle() {
 		setToggle(toggle ? false : true);
+	}
+
+	function onChangeSkill(){
+		setSkilError(false);
+		setSelectedSkills([...selectedSkills, skill])
 	}
 
 	return (
@@ -22,6 +70,7 @@ function App() {
 			</header>
 			<div className="content">
 				{console.log('data', user)}
+				{console.log('selected skills',selectedSkills)}
 				{user.length !== 0 ? (
 					<table>
 						<tr>
@@ -48,7 +97,7 @@ function App() {
 						</tr>
 					</table>
 				) : (
-					<div className="has-nothing">Nenhum item cadastrado.</div>
+					<div className="has-nothing">Nenhum usuário cadastrado.</div>
 				)}
 			</div>
 
@@ -58,7 +107,7 @@ function App() {
 						size={16}
 						style={{
 							position: 'absolute',
-							top: 240,
+							top: 235,
 							left: 375,
 							zIndex: 2,
 							cursor: 'pointer',
@@ -66,23 +115,9 @@ function App() {
 						onClick={(e) => handleToggle()}
 					/>
 					<Formik
-						initialValues={{
-							name: '',
-							nickname: '',
-							age: '',
-							schooling: '',
-							skills: [''],
-						}}
-						onSubmit={(values, {resetForm}) => {
-							values.skills = selectedSkills;
-							console.log('valores final', values);
-              setUser(values);
-
-              resetForm({})
-              setSkill('');
-              setSelectedSkills([]);
-              handleToggle();
-						}}
+						initialValues={initialValues}
+						onSubmit={handleSubmit}
+						validationSchema={contactSchema}
 					>
 						<Form>
 							<div className="form-header">
@@ -97,10 +132,20 @@ function App() {
 										<div className="input-block">
 											<legend>Nome</legend>
 											<Field name="name" type="text" placeholder="Nome" />
+											<ErrorMessage
+												className="Form-Error"
+												component="span"
+												name="name"
+											/>
 										</div>
 										<div className="input-block">
 											<legend>Idade</legend>
-											<Field name="age" type="text" placeholder="Idade" />
+											<Field name="age" type="number" placeholder="Idade" />
+											<ErrorMessage
+												className="Form-Error"
+												component="span"
+												name="age"
+											/>
 										</div>
 									</div>
 									<div className="input-group">
@@ -111,6 +156,11 @@ function App() {
 												type="text"
 												placeholder="Sobrenome"
 											/>
+											<ErrorMessage
+												className="Form-Error"
+												component="span"
+												name="nickname"
+											/>
 										</div>
 										<div className="input-block">
 											<legend>Escolaridade</legend>
@@ -118,6 +168,11 @@ function App() {
 												name="schooling"
 												type="text"
 												placeholder="Escolaridade"
+											/>
+											<ErrorMessage
+												className="Form-Error"
+												component="span"
+												name="schooling"
 											/>
 										</div>
 									</div>
@@ -134,12 +189,21 @@ function App() {
 												value={skill}
 												onChange={(e) => setSkill(e.target.value)}
 											/>
+											{skilError && (
+												<span
+													className="Form-Error skill-error"
+													component="span"
+													name="skills"
+												>
+													Insira pelo menos 1 skill
+												</span>
+											)}
 										</div>
 										<div className="input-block">
 											<button
 												className="skill"
 												onClick={() =>
-													setSelectedSkills([...selectedSkills, skill])
+													onChangeSkill()
 												}
 												type="button"
 											>

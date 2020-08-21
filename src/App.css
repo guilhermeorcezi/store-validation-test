@@ -128,7 +128,7 @@ th {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
 }
 
 #page-create .create-container form .form-content .create-profile {
@@ -164,8 +164,10 @@ th {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
+	padding-top: 43px;
 }
 
 #page-create .create-container form .form-content .create-skills .input-block {
 	display: flex;
+	flex-direction: column;
 }
