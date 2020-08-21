@@ -23,9 +23,8 @@ The project was developed using the following technologies
 ## :fire: How to run
 
 ### :exclamation: React Application
-To start use the commands:
+To start the aplication clone this repository and use the commands:
 ```bash
-cd web
 yarn install // npm install
 yarn start // npm start
 ```
