@@ -32,7 +32,7 @@ yarn start // npm start
 
 After the process is over, the `localhost: 3000` page containing the developed project will automatically open in your browser.
 
-###: recycle: How to contribute
+### :recycle: How to contribute
 - First, leave a ⭐ if you like it!
 - Fork this repository;
 - Create a branch with your feature: `git checkout -b my-feature`
