@@ -1,38 +1,171 @@
-.App {
-  text-align: center;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button,
+table {
+	font-family: Arial;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+	padding: 10px 16px;
+	background: #3f51b5;
+	color: #fff;
+	border-radius: 8px;
+	outline: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input {
+	height: 42px;
+	padding: 15px 24px;
+	border: 1px solid #e6e6f0;
+	background: #fafafc;
+	border-radius: 8px;
+	margin-top: 10px;
+	outline: none;
 }
 
-.App-link {
-  color: #61dafb;
+ul {
+	list-style-type: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-skills {
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+#page-create {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	padding: 30px;
+}
+
+#page-create .has-nothing {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: Poppins;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 26px;
+	text-align: center;
+	color: var(--color-text-complement);
+	padding-top: 100px;
+}
+
+#page-create .header,
+#page-create .create-container form .form-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#page-create .header h1,
+#page-create .create-container form .form-header h1 {
+	font-size: 36px;
+}
+
+#page-create .content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
+#page-create .content table {
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+
+#page-create .content table,
+td,
+th {
+	border: 1px solid black;
+	height: 30px;
+}
+
+#page-create .content table td {
+	margin: 5px;
+	height: 30px;
+}
+
+#page-create .create-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.8);
+	height: 100%;
+}
+
+#page-create .create-container form {
+	background: #fff;
+	padding: 30px;
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: space-between;
+	width: 800px;
+	position: relative;
+}
+
+#page-create .create-container form .form-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#page-create .create-container form .form-content .create-profile {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+#page-create .create-container form .form-content .create-profile .input-group {
+	margin-right: 15px;
+}
+
+#page-create .create-container form .form-content .create-profile .input-block {
+	margin-top: 15px;
+}
+
+#page-create .create-container form .form-content .create-skills {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+#page-create .create-container form .form-content .create-skills .skill {
+	color: #3f51b5;
+	background: #fff;
+	border: 1px solid #3f51b5;
+	margin-left: 15px;
+}
+
+#page-create .create-container form .form-content .create-skills .input-group {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+
+#page-create .create-container form .form-content .create-skills .input-block {
+	display: flex;
 }
