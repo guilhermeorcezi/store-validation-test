@@ -27,7 +27,10 @@ function App() {
 		schooling: yup.string().required('Escolaridade é obrigatória'),
 	});
 
-	const handleSubmit = (values,{ setSubmitting, setErrors, setStatus, resetForm }) => {
+	const handleSubmit = (
+		values,
+		{ setSubmitting, setErrors, setStatus, resetForm }
+	) => {
 		if (selectedSkills.length === 0) {
 			setSkilError(true);
 			return;
@@ -35,7 +38,7 @@ function App() {
 
 		try {
 			values.skills = selectedSkills;
-			setUser(values);
+			setUser([...user, values]);
 
 			resetForm({});
 			setSkill('');
@@ -60,6 +63,7 @@ function App() {
 
 	return (
 		<main id="page-create">
+			{console.log('users', user)}
 			<header className="header">
 				<h1>Listagem de usuários</h1>
 				<button onClick={(e) => handleToggle()}>Cadastrar usuário</button>
@@ -74,21 +78,25 @@ function App() {
 							<th>Escolaridade</th>
 							<th>Qtd Skills</th>
 						</tr>
-						<tr>
-							<td>{user.name}</td>
-							<td>{user.nickname}</td>
-							<td>{user.age}</td>
-							<td>{user.schooling}</td>
-							<td>
-								<ul>
-									{user.skills.map((skill, index) => (
-										<li key={index}>
-											{index + 1} - {skill}
-										</li>
-									))}
-								</ul>
-							</td>
-						</tr>
+						{user.map((user) => (
+							<>
+								<tr>
+									<td>{user.name}</td>
+									<td>{user.nickname}</td>
+									<td>{user.age}</td>
+									<td>{user.schooling}</td>
+									<td>
+										<ul>
+											{user.skills.map((skill, index) => (
+												<li key={index}>
+													{index + 1} - {skill}
+												</li>
+											))}
+										</ul>
+									</td>
+								</tr>
+							</>
+						))}
 					</table>
 				) : (
 					<div className="has-nothing">Nenhum usuário cadastrado.</div>
